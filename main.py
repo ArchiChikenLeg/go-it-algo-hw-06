@@ -9,6 +9,16 @@ G.add_edges_from([
     ("M2", "O2"), ("S2", "M1"), ("S2", "X1"), ("M1", "X2"), ("X1", "X2")
 ])
 
+print("Кількість вершин:", G.number_of_nodes())
+print("Кількість ребер:", G.number_of_edges())
+
+# Ступені вершин
+print("Ступінь кожної вершини:")
+for node in G.nodes:
+    print(f"{node}: {G.degree(node)}")
+
+avg_degree = sum(dict(G.degree()).values()) / G.number_of_nodes()
+print("Середній ступінь графа:", avg_degree)
 # BFS (пошук у ширину)
 def bfs(graph, start_node):
     visited = set()
@@ -63,12 +73,21 @@ def dijkstra(graph, start_node):
     
     return distances
 
-# Приклади використання
+
 start = "B"
 print("BFS:", bfs(G, start))
 print("DFS:", dfs(G, start))
 print("Dijkstra's Shortest Path Distances:", dijkstra(G, start))
 
+bfs_path = bfs(G, start)
+dfs_path = dfs(G, start)
+
+print("Порівняння DFS та BFS:")
+print("BFS відвідує вершини в ширину, тому спочатку обробляє всі суміжні вершини поточного вузла.")
+print("DFS занурюється в глибину, тобто спочатку досліджує один шлях якомога далі.")
+print("Отже, порядок обходу різний, оскільки алгоритми мають різну стратегію пошуку.")
+print("BFS:", bfs_path)
+print("DFS:", dfs_path)
 
 nx.draw(G, with_labels=True)
 plt.show()
